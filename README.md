@@ -1,84 +1,156 @@
+# UdS_OP (Universal Desktop Software Operator)
 
-# MHack
+## Overview
+UdS_OP is a versatile AI assistant with a desktop interface, designed to help users complete various tasks using natural language instructions. The assistant integrates multiple tools including web browsing, Python code execution, file operations, and web search capabilities, making it a powerful productivity tool for developers, office workers, and general users.
 
-Hackathon project
+## Features
+- **Desktop GUI Interface**: User-friendly interface built with Tkinter
+- **Command Line Interface**: Alternative terminal-based interface for power users
+- **Web Browsing Capabilities**: Ability to interact with websites and automate web-based tasks
+- **Python Code Execution**: Run Python code to solve problems or create applications
+- **File Operations**: Save, modify, and manage files on your system
+- **Web Search**: Search the web for information to assist with tasks
+- **Terminal Commands**: Execute system commands to perform operations
+- **Cross-Platform**: Works on Windows, macOS, and Linux
 
-## Project Structure
+## Architecture
+The UdS_OP architecture consists of:
+- **Agent System**: Core AI logic for understanding and processing user requests
+- **Tool Collection**: Various tools that extend the agent's capabilities
+- **Desktop Application**: GUI interface for interacting with the agent
+- **Terminal Interface**: Command-line alternative to the GUI
 
-MHack/ .gitignore README.md MHack/ .gitignore README.md UdS OP/ .gitignore desktop_app.py main.py README.md requirements.txt some prompt examples.txt app/ config/ webo/ app.py main.py vid.mp4
+## Requirements
+- Python 3.8 or higher
+- A compatible operating system (Windows, macOS, Linux)
+- Appropriate API keys for LLM services (configured in the Uds_OP/config.toml file similar to config.example.toml)
 
-## Setup and Installation
+## Installation
 
-### Prerequisites
+### Step 1: Clone the repository
+```bash
+git clone https://github.com/sigmabotech/UdS_Operator
+cd UdS_Operator
+```
 
-- Python 3.x
-- pip (Python package installer)
 
-### Installation
+### Step 3: Install dependencies
+```bash
+pip install -r requirements.txt
+```
 
-1. Clone the repository:
+### Step 4: Configure the application
+Create a `config.toml` file in the UdS_OP directory with your API keys and configuration settings based on the provided example:
 
-   ```sh
-   git clone https://github.com/sigmabotech/MHack.git
-   cd MHack
-   ```
+```toml
+# LLM Configuration
+[llm.anthropic]
+model = "claude-3-opus-20240229"
+base_url = "https://api.anthropic.com/v1"
+api_key = "YOUR_ANTHROPIC_API_KEY"
+api_type = "Anthropic"
+api_version = ""
 
-2. Navigate to the `UdS OP` directory:
+# Alternative LLM configurations
+[llm.openai]
+model = "gpt-4-turbo"
+base_url = "https://api.openai.com/v1"
+api_key = "YOUR_OPENAI_API_KEY"
+api_type = "Openai"
+api_version = ""
 
-   ```sh
-   cd MHack/UdS\ OP
-   ```
+# Browser Configuration
+[browser_config]
+headless = false
+disable_security = true
+```
 
-3. Install the required Python packages:
+## Usage
 
-   ```sh
-   pip install -r requirements.txt
-   ```
-
-### Running the Application
-
-#### Desktop Application
-
-To run the desktop application, execute the following command:
-
-```sh
+### Running the Desktop Application
+```bash
+cd UdS_OP
 python desktop_app.py
+```
 
-#### Web Application
+### Running the Command Line Interface
+```bash
+cd UdS_OP
+python main.py
+```
 
-To run the web application, navigate to the webo directory and execute the following command:
+### Example Tasks
+- "How many files are in my Downloads folder?"
+- "Create a simple calculator webpage with HTML, CSS, and JavaScript"
+- "Convert all JPG images in a folder to PNG format"
+- "Go to amazon.de and then order the harry potter books"
 
-Directory Structure
-MHack/: Root directory containing project files.
-MHack/UdS OP/: Contains the desktop application and related files.
-MHack/webo/: Contains the web application and related files.
+## APIs, Frameworks, and Tools
 
-APIs, Frameworks, and Tools Utilized
-APIs
-Example API 1: Used for fetching data from an external source.
-Example API 2: Used for authentication and user management.
-Frameworks
-Flask: A micro web framework used for building the web application.
-Tkinter: A standard GUI library for Python used for building the desktop application.
-Tools
-Git: Version control system used for tracking changes in the source code.
-Visual Studio Code: Code editor used for development.
-Postman: Tool used for testing APIs.
+### Large Language Models
+- **Anthropic Claude**: Primary LLM used for reasoning and task processing
+- **OpenAI GPT-4**: Alternative LLM option
+- **Ollama**: Optional local LLM support
 
-Technical Documentation
-Desktop Application
-The desktop application is built using Python and Tkinter. It provides a graphical user interface for users to interact with the application.
+### Frontend Frameworks
+- **Tkinter**: Python's standard GUI toolkit used to build the desktop interface
+- **ScrolledText**: Extended text widget with scrolling capabilities
+- **ttk**: Themed Tkinter widgets for improved UI
 
-Entry Point: desktop_app.py
-Dependencies: Listed in requirements.txt
-Web Application
-The web application is built using Python and Flask. It provides a web-based interface for users to interact with the application.
+### Backend Libraries
+- **asyncio**: Asynchronous I/O library for concurrent operations
+- **Pydantic**: Data validation and settings management
+- **browser-use**: Browser automation for web interactions
+- **requests/httpx**: HTTP clients for web requests
 
-Entry Point: app.py (located in the webo directory)
-Dependencies: Listed in requirements.txt
-Additional Information
-For more details, refer to the individual README.md files in the respective directories:
+### Development Tools
+- **Python 3.8+**: Programming language
+- **tomllib**: TOML configuration parser
+- **logging**: Structured logging system
+- **argparse**: Command-line argument parsing
 
-MHack/UdS OP/README.md
-MHack/webo/README.md
+## Technical Documentation
+
+### Agent System
+The UdS_OP agent is built around a flexible architecture that combines:
+
+1. **Tool-Call Agent**: The core agent system that processes requests and calls appropriate tools
+2. **Planning System**: A multi-step reasoning approach that breaks down complex tasks
+3. **LLM Integration**: Leverages powerful LLMs for reasoning and task understanding
+
+#### Agent Components:
+- **udsop.py**: Main agent class that integrates all tools and capabilities
+- **toolcall.py**: Handles the tool-calling logic and interaction with LLMs
+- **planning.py**: Implements planning capabilities for complex tasks
+- **base.py**: Provides the base agent architecture and common functionality
+
+### Tool Collection
+UdS_OP integrates multiple tools that extend its capabilities:
+
+1. **PythonExecute**: Executes Python code in a controlled environment
+2. **WebSearch**: Searches the web for information using various search engines
+3. **BrowserUseTool**: Automates browser interactions for web-based tasks
+4. **FileSaver**: Handles file operations like saving, reading, and manipulation
+5. **Terminal**: Executes terminal commands with proper sandboxing
+
+### Desktop Application
+The desktop application provides a user-friendly interface for interacting with the agent:
+
+1. **Main Window**: Input area, output display, and control buttons
+2. **Progress Indicators**: Visual feedback during task processing
+3. **History Management**: Conversation history with the agent
+4. **Theme Support**: Customizable appearance
+
+
+
+### Logs
+Logs are stored in the `logs/` directory and can help diagnose issues.
+
+## Development
+To contribute to this project:
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
 
