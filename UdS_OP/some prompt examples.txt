@@ -1,5 +1,0 @@
-How many images are there in C:\Users\moham\OneDrive\Pictures\Screenshots
-
-Change all the images to pdfs and merge them to one single pdf and save it in the same directory with the name of a7a.pdf C:\Users\moham\OneDrive\Pictures\Screenshots
-
-Develop a Pomodoro timer website with customizable work and break intervals and a simple user interface
