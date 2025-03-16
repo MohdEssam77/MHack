@@ -16,7 +16,7 @@ load_dotenv()
 
 from langchain_google_genai import ChatGoogleGenerativeAI
 
-llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash-exp", temperature=0.3)
+llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash")
 
 ##############################################
 # PART 1: Interactive Plan Refinement (Steps 1 & 2)
@@ -217,13 +217,16 @@ async def execute_plan_with_resume(plan: str):
 
 
 async def main():
-    print("Starting interactive task planning with LLM memory...\n")
-    accepted_plan = await interactive_plan_refinement()
-    print(
-        "\nProceeding to execute the accepted plan via browser-use with resume capability..."
-    )
-    await execute_plan_with_resume(accepted_plan)
+    """Main entry point for the web browsing agent"""
+    print("Starting web browsing agent...")
+
+    # Create and run the agent
+    agent = Agent(task="Compare the price of gpt-4o and DeepSeek-V3", llm=llm)
+    await agent.run()
+
+    print("Web browsing completed.")
 
 
 if __name__ == "__main__":
+    """Run the main function when executed directly"""
     asyncio.run(main())
